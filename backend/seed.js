@@ -8,7 +8,14 @@ import Order from './models/Order.js';
 import connectDB from './config/db.js';
 
 dotenv.config();
-connectDB();
+
+connectDB().then(() => {
+  if (process.argv[2] === '-d') {
+    destroyData();
+  } else {
+    importData();
+  }
+});
 
 const importData = async () => {
   try {
@@ -16,7 +23,7 @@ const importData = async () => {
     await Order.deleteMany();
     await Product.deleteMany();
     await User.deleteMany();
-    console.log('Records destroyed successfully.'.green);
+    console.log('Records destroyed successfully'.green.inverse);
 
     console.log('Creating records...'.yellow);
     const createdUsers = await User.insertMany(users);
@@ -27,10 +34,10 @@ const importData = async () => {
 
     await Product.insertMany(sampleProducts);
 
-    console.log('Records created successfully.'.green);
+    console.log('Records created successfully'.green.inverse);
     process.exit();
   } catch (error) {
-    console.error(`${error}`.red);
+    console.error(`${error}`.red.inverse);
     process.exit(1);
   }
 };
@@ -42,16 +49,10 @@ const destroyData = async () => {
     await Order.deleteMany();
     await Product.deleteMany();
     await User.deleteMany();
-    console.log('Records destroyed successfully.'.green);
+    console.log('Records destroyed successfully'.green.inverse);
     process.exit();
   } catch (error) {
-    console.error(`${error}`.red);
+    console.error(`${error}`.red.inverse);
     process.exit(1);
   }
 };
-
-if (process.argv[2] === '-d') {
-  destroyData();
-} else {
-  importData();
-}
