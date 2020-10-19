@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import colors from 'colors';
 import connectDB from './config/db.js';
 import productRoutes from './routes/productRoutes.js';
+import { notFound, errorHandler } from './middleware/errorHandlers.js';
 
 dotenv.config();
 connectDB();
@@ -22,6 +23,15 @@ app.get('/', (req, res) => {
 
 // API Products
 app.use('/api/v1/products', productRoutes);
+
+
+// ---------------------------------------------- ERROR HANDLERS
+
+// 404
+app.use(notFound);
+
+// Object ID
+app.use(errorHandler);
 
 
 // ------------------------------------------------ LISTENER
