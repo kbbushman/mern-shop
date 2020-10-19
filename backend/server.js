@@ -1,9 +1,10 @@
 const express = require('express');
+require('dotenv').config();
+
 const products = require('./data/products');
 
 const PORT = process.env.PORT || 4000;
 const app = express();
-
 
 // ----------------------------------------------- MIDDLEWARE
 
@@ -29,5 +30,5 @@ app.get('/api/v1/products/:id', (req, res) => {
 // ------------------------------------------------ LISTENER
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
 });
