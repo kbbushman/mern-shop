@@ -8,17 +8,17 @@ const ProductPage = ({ match }) => {
   const [product, setProduct] = useState({rating: 0});
 
   useEffect(() => {
-    fetchProduct();
-  }, []);
+    const fetchProduct = async () => {
+      try {
+        const { data } = await axios.get(`/api/v1/products/${match.params.id}`);
+        setProduct(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  const fetchProduct = async () => {
-    try {
-      const { data } = await axios.get(`/api/v1/products/${match.params.id}`);
-      setProduct(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    fetchProduct();
+  }, [match.params.id]);
 
   return (
     <>
