@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import colors from 'colors';
 import connectDB from './config/db.js';
-import products from './data/products.js';
+import productRoutes from './routes/productRoutes.js';
 
 dotenv.config();
 connectDB();
@@ -20,16 +20,9 @@ app.get('/', (req, res) => {
   res.send('<h1>Welcome to ProShop API</h1>');
 });
 
-// API Products Index
-app.get('/api/v1/products', (req, res) => {
-  res.json(products);
-});
+// API Products
+app.use('/api/v1/products', productRoutes);
 
-// API Products Show
-app.get('/api/v1/products/:id', (req, res) => {
-  const product = products.find((product) => product._id === req.params.id);
-  res.json(product);
-});
 
 // ------------------------------------------------ LISTENER
 
