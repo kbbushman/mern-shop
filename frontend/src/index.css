@@ -9,3 +9,7 @@ h3 {
 .rating span {
   margin: 0.1rem;
 }
+
+.form-control {
+  padding: .75rem .75rem;
+}
