@@ -7,12 +7,14 @@ export const cartReducer = (state = initialState, action) => {
     case CART_ADD_ITEM:
       const item = action.payload;
 
-      const itemExists = state.cartItems.find((x) => x.product === item.prodcut);
+      const existingItem = state.cartItems.find((x) => x.product === item.product);
 
-      if (itemExists) {
+      if (existingItem) {
         return {
           ...state,
-          cartItems: state.cartItems.map((x) => x.product === itemExists.product ? item : x),
+          cartItems: state.cartItems.map((x) => {
+            return x.product === existingItem.product ? item : x;
+          }),
         };
       } else {
         return {
@@ -23,4 +25,4 @@ export const cartReducer = (state = initialState, action) => {
     default:
       return state;
   }
-}
+};
