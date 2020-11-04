@@ -4,18 +4,18 @@ const users = [
   {
     name: 'Admin',
     email: 'admin@proshop.com',
-    password: bcrypt.hashSync('1234', 10),
+    password: bcrypt.hashSync('123456', 10),
     isAdmin: true,
   },
   {
     name: 'John Doe',
-    email: 'jdoe@pgmail.com',
-    password: bcrypt.hashSync('1234', 10),
+    email: 'jdoe@gmail.com',
+    password: bcrypt.hashSync('123456', 10),
   },
   {
     name: 'Kevin Smith',
     email: 'ksmith@gmail.com',
-    password: bcrypt.hashSync('1234', 10),
+    password: bcrypt.hashSync('123456', 10),
   },
 ];
 
