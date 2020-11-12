@@ -27,12 +27,15 @@ app.get('/', (req, res) => {
 
 // API Products
 app.use('/api/v1/products', productRoutes);
-
 // API Users
 app.use('/api/v1/users', userRoutes);
-
 // API Orders
 app.use('/api/v1/orders', orderRoutes);
+
+// GET PayPal Client ID for Payment Processing
+app.get('/api/v1/config/paypal', (req, res) => {
+  res.send(process.env.PAYPAL_CLIENT_ID);
+});
 
 
 // ---------------------------------------------- ERROR HANDLERS
