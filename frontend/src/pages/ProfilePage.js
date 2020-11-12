@@ -56,7 +56,7 @@ const ProfilePage = ({ history, location }) => {
           <Form.Group controlId='name'>
             <Form.Label>Name</Form.Label>
             <Form.Control
-              type='test'
+              type='text'
               placeholder='Enter Name'
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -97,6 +97,6 @@ const ProfilePage = ({ history, location }) => {
       </Col>
     </Row>
   )
-}
+};
 
 export default ProfilePage;
