@@ -80,7 +80,7 @@ export const orderPayReducer = (state = {}, action) => {
 };
 
 
-export const orderUserListReducer = (state = {}, action) => {
+export const orderUserListReducer = (state = {orders: []}, action) => {
   switch (action.type) {
     case ORDER_USER_LIST_REQUEST:
       return {loading: true};
