@@ -32,7 +32,7 @@ app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/users', userRoutes);
 
 // API Orders
-app.use('/api/v1/users', orderRoutes);
+app.use('/api/v1/orders', orderRoutes);
 
 
 // ---------------------------------------------- ERROR HANDLERS
