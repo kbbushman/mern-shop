@@ -4,6 +4,7 @@ import colors from 'colors';
 import connectDB from './config/db.js';
 import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
 import { notFound, errorHandler } from './middleware/errorHandlers.js';
 
 dotenv.config();
@@ -29,6 +30,9 @@ app.use('/api/v1/products', productRoutes);
 
 // API Users
 app.use('/api/v1/users', userRoutes);
+
+// API Orders
+app.use('/api/v1/users', orderRoutes);
 
 
 // ---------------------------------------------- ERROR HANDLERS
