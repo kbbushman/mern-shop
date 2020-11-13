@@ -31,10 +31,10 @@ const ProfilePage = ({ history }) => {
     } else {
       if (!user.name) {
         dispatch(getUserDetails('profile'));
-        dispatch(listUserOrders());
       } else {
         setName(user.name);
         setEmail(user.email);
+        dispatch(listUserOrders());
       }
     }
   }, [dispatch, history, userInfo, user]);
