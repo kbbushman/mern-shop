@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { getUserDetails, updateUserProfile } from '../actions/userActions';
-// import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
 import { listUserOrders } from '../actions/orderActions';
 
 const ProfilePage = ({ history }) => {
@@ -24,7 +23,6 @@ const ProfilePage = ({ history }) => {
   const { success } = userUpdateProfile;
   const { loading:loadingOrders, error:errorOrders, orders } = orderUserList;
 
-
   useEffect(() => {
     if (!userInfo) {
       history.push('/login');
@@ -34,10 +32,12 @@ const ProfilePage = ({ history }) => {
       } else {
         setName(user.name);
         setEmail(user.email);
-        dispatch(listUserOrders());
+        if (!success) {
+          dispatch(listUserOrders());
+        }
       }
     }
-  }, [dispatch, history, userInfo, user]);
+  }, [dispatch, history, userInfo, user, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
