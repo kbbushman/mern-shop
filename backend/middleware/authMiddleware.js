@@ -24,4 +24,14 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
-export { protect };
+
+const adminOnly = (req, res, next) => {
+  if (req.user && req.user.isAdmin) {
+    next();
+  } else {
+    res.status(401);
+    throw new Error('Not authorized. You must be an admin to access this resource');
+  }
+};
+
+export { protect, adminOnly };
