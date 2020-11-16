@@ -15,6 +15,7 @@ import PlaceOrderPage from './pages/PlaceOrderPage';
 import OrderPage from './pages/OrderPage';
 import UserListPage from './pages/UserListPage';
 import UserEditPage from './pages/UserEditPage';
+import ProductListPage from './pages/ProductListPage';
 
 function App() {
   return (
@@ -31,9 +32,10 @@ function App() {
           <Route path='/placeorder' component={PlaceOrderPage} />
           <Route path='/order/:id' component={OrderPage} />
           <Route path='/product/:id' component={ProductPage} />
+          <Route path='/cart/:id?' component={CartPage} />
           <Route path='/admin/userlist' component={UserListPage} />
           <Route path='/admin/user/:id' component={UserEditPage} />
-          <Route path='/cart/:id?' component={CartPage} />
+          <Route path='/admin/productlist' component={ProductListPage} />
         </Container>
       </main>
       <Footer />
