@@ -23,3 +23,15 @@ h3 {
 .form-control {
   padding: .75rem .75rem;
 }
+
+a:visited,
+button:visited,
+.nav-item:visited,
+a:active,
+button:active,
+.nav-item:active,
+a:focus,
+button:focus,
+.nav-item:focus {
+  outline: none;
+}
