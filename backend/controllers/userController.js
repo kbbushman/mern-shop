@@ -4,7 +4,7 @@ import User from '../models/User.js';
 
 
 // @desc    Authenticate User & Issue Token
-// @route   GET /api/v1/users/login
+// @route   POST /api/v1/users/login
 // @access  Public
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -107,8 +107,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 });
 
 
-// @desc    Update All Users
-// @route   PUT /api/v1/users
+// @desc    Get All Users
+// @route   GET /api/v1/users
 // @access  Private/Admin
 const getUsers = asyncHandler(async (req, res) => {
   const users = await User.find({});
@@ -116,8 +116,8 @@ const getUsers = asyncHandler(async (req, res) => {
 });
 
 
-// @desc    Delete User
-// @route   PUT /api/v1/users/:id
+// @desc    Delete One User
+// @route   DELETE /api/v1/users/:id
 // @access  Private/Admin
 const deleteUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
@@ -133,7 +133,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 
 // @desc    Get User By ID
-// @route   PUT /api/v1/users/:id
+// @route   GET /api/v1/users/:id
 // @access  Private/Admin
 const getUserById = asyncHandler(async (req, res) => {
   const user = await await User.findById(req.params.id).select('-password');
