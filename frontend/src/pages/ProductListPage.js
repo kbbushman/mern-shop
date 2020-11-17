@@ -4,27 +4,49 @@ import { Table, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { listProducts, deleteProduct } from '../actions/productActions';
+import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
+import {
+  listProducts,
+  deleteProduct,
+  createProduct
+} from '../actions/productActions';
 
-const ProductListPage = ({ history, match }) => {
+const ProductListPage = ({ history }) => {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const productDelete = useSelector((state) => state.productDelete);
+  const productCreate = useSelector((state) => state.productCreate);
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading, error, products } = productList;
-  const { loading:loadingDelete, error:errorDelete, success:successDelete } = productDelete;
   const { userInfo } = userLogin;
+  const { loading, error, products } = productList;
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete
+  } = productDelete;
+  const {
+    loading: loadingCreate,
+    error: errorCreate,
+    success: successCreate,
+    product: createdProduct
+  } = productCreate;
 
   useEffect(() => {
-    if (userInfo && userInfo.isAdmin) {
-      dispatch(listProducts());
-    } else {
+    dispatch({type: PRODUCT_CREATE_RESET});
+
+    if (!userInfo.isAdmin) {
       history.push('/login');
     }
-  }, [dispatch, userInfo, history, successDelete]);
 
-  const createProductHandler = (product) => {
-    // TODO: CREATE PRODUCT
+    if (successCreate) {
+      history.push(`/admin/products/${createdProduct._id}/edit`);
+    } else {
+      dispatch(listProducts());
+    }
+  }, [dispatch, userInfo, history, successDelete, successCreate, createdProduct]);
+
+  const createProductHandler = () => {
+    dispatch(createProduct());
   };
 
   const deleteHandler = (id) => {
@@ -47,6 +69,8 @@ const ProductListPage = ({ history, match }) => {
       </Row>
       {loadingDelete && <Loader />}
       {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
+      {loadingCreate && <Loader />}
+      {errorCreate && <Message variant='danger'>{errorCreate}</Message>}
       {loading
         ? <Loader />
         : error
