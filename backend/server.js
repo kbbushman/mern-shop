@@ -1,3 +1,4 @@
+import path from 'path';
 import express from 'express';
 import dotenv from 'dotenv';
 import colors from 'colors';
@@ -5,18 +6,23 @@ import connectDB from './config/db.js';
 import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
+import uploadRoutes from './routes/uploadRoutes.js';
 import { notFound, errorHandler } from './middleware/errorHandlers.js';
 
 dotenv.config();
 connectDB();
 
-const PORT = process.env.PORT || 4000;
 const app = express();
+const __dirname = path.resolve();
+const PORT = process.env.PORT || 4000;
 
 // ----------------------------------------------- MIDDLEWARE
 
 // BodyParser
 app.use(express.json());
+
+// Static Assets
+app.use(express.static(path.join(__dirname, '/uploads')));
 
 // ------------------------------------------------- ROUTES
 
@@ -31,6 +37,8 @@ app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/users', userRoutes);
 // API Orders
 app.use('/api/v1/orders', orderRoutes);
+// API Uploads
+app.use('/api/v1/upload', uploadRoutes);
 
 // GET PayPal Client ID for Payment Processing
 app.get('/api/v1/config/paypal', (req, res) => {
