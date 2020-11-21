@@ -3,6 +3,7 @@ import {
   addOrderItems,
   getOrderById,
   updateOrderToPaid,
+  updateOrderToDelivered,
   getMyOrders,
   getOrders,
 } from '../controllers/orderController.js';
@@ -23,6 +24,9 @@ router
 router
   .route('/:id/pay')
   .put(protect, updateOrderToPaid);
+router
+  .route('/:id/deliver')
+  .put(protect, adminOnly, updateOrderToDelivered);
 
 
 export default router;
