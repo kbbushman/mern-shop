@@ -2,6 +2,7 @@ import path from 'path';
 import express from 'express';
 import dotenv from 'dotenv';
 import colors from 'colors';
+import morgan from 'morgan';
 import connectDB from './config/db.js';
 import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
@@ -17,6 +18,11 @@ const __dirname = path.resolve();
 const PORT = process.env.PORT || 4000;
 
 // ----------------------------------------------- MIDDLEWARE
+
+// Morgan Logging
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 // BodyParser
 app.use(express.json());
