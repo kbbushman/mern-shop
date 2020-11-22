@@ -5,6 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { createOrder } from '../actions/orderActions';
+import { ORDER_CREATE_RESET } from '../constants/orderConstants';
+import { USER_DETAILS_RESET } from '../constants/userConstants';
+import { CART_RESET } from '../constants/cartConstants';
 
 const PlaceOrderPage = ({ history }) => {
   const dispatch = useDispatch();
@@ -17,9 +20,7 @@ const PlaceOrderPage = ({ history }) => {
 
   // Calculate Order Prices
   cart.itemsPrice = addDecimals(cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0));
-
   cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 10);
-
   cart.taxPrice = addDecimals(Number((0.15 * cart.itemsPrice).toFixed(2)));
 
   cart.totalPrice = (
@@ -31,6 +32,9 @@ const PlaceOrderPage = ({ history }) => {
   useEffect(() => {
     if (success) {
       history.push(`/order/${order._id}`);
+      dispatch({type: USER_DETAILS_RESET});
+      dispatch({type: ORDER_CREATE_RESET});
+      dispatch({type: CART_RESET});
     }
   // eslint-disable-next-line
   }, [history, success]);
