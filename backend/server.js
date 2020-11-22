@@ -32,18 +32,9 @@ app.use(express.static(path.join(__dirname, '/uploads')));
 
 // ------------------------------------------------- ROUTES
 
-// Root Route
-app.get('/', (req, res) => {
-  res.send('<h1>Welcome to ProShop API</h1>');
-});
-
-// API Products
 app.use('/api/v1/products', productRoutes);
-// API Users
 app.use('/api/v1/users', userRoutes);
-// API Orders
 app.use('/api/v1/orders', orderRoutes);
-// API Uploads
 app.use('/api/v1/upload', uploadRoutes);
 
 // GET PayPal Client ID for Payment Processing
@@ -51,13 +42,25 @@ app.get('/api/v1/config/paypal', (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID);
 });
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/frontend/build')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  });
+} else {
+  app.get('/', (req, res) => {
+    res.send('<h1>Welcome to ProShop API</h1>');
+  });
+}
+
 
 // ---------------------------------------------- ERROR HANDLERS
 
 // 404
 app.use(notFound);
 
-// Object ID
+// Unhandled Errors
 app.use(errorHandler);
 
 
