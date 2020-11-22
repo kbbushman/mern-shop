@@ -8,7 +8,8 @@ const SearchBox = ({ history }) => {
     e.preventDefault();
     
     if (keyword.trim()) {
-      history.push(`/search/${keyword}`)
+      history.push(`/search/${keyword}`);
+      setKeyword('');
     } else {
       history.push('/');
     }
@@ -21,6 +22,7 @@ const SearchBox = ({ history }) => {
         name='q'
         placeholder='Search Products...'
         className='mr-sm-2 ml-sm-5'
+        value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
       ></Form.Control>
       <Button
