@@ -25,8 +25,6 @@ function App() {
       <Header />
       <main className='py-5'>
         <Container>
-          <Route path='/' component={HomePage} exact />
-          
           <Route path='/login' component={LoginPage} />
           <Route path='/register' component={RegisterPage} />
           <Route path='/profile' component={ProfilePage} />
@@ -42,6 +40,7 @@ function App() {
           <Route path='/admin/product/:id/edit' component={ProductEditPage} />
           <Route path='/admin/orderlist' component={OrderListPage} />
           <Route path='/search/:keyword' component={HomePage} />
+          <Route path='/' component={HomePage} exact />
         </Container>
       </main>
       <Footer />
